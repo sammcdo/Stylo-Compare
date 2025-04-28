@@ -1,0 +1,30 @@
+---
+title: "StyloAnalysis Writeup"
+format: html
+editor: visual
+author: Sam McDowell
+---
+
+# Stylometric Visualization
+
+Honors Petition Project
+
+Liberty University - School of Business
+
+## Abstract
+
+Do later
+
+## Introduction
+
+In the late 1700s, three of the Founding Fathers of the United States of America, Alexander Hamilton, John Jay, and James Madison, wrote a series of essays with the goal of urging the colonies to ratify the Constitution (Library of Congress, 2019). These three authors all wrote under the pseudonym "Publius" (Library of Congress, 2019). For a long time, it was impossible to know which of the three writers authored each of the 85 works. However, in 1964, Professors David Wallace and Frederick Mosteller used statistical tools to identify the authors of these works (Mercer, 2017).
+
+Stylometry is the use of statistical methods to analyze writing style and authorship (Wermer-Colman, 2023). Stylometry is used frequently for authorship attribution (Wermer-Colman, 2023). This could be done for Computational Linguistics studies but is also frequently conducted for Literary Forensics (Wermer-Colman, 2023).
+
+The goal of this petition is to create a tool called Stylo-Compare that allows visualization of common stylometric analysis metrics. It provides a more detailed analysis than current tools, such as the R Stylo library.
+
+## Background
+
+Stylo-Compare is a stylometric analysis tool that allows for the comparison of two raw texts. It offers insights into the writing style of each input work, and
+
+Stylo-Compare allows for visualizations in five different categories: Vocabulary, Readability, Lexical Analysis, Phraseology, and Identification. Vocabulary deals with the variability in words used by the author. Readability uses modern techniques to estimate the difficulty of a text. Lexical Analysis deals with words, sentences and parts of speech. Phraseology allows the viewing of common phrases used by the author. Finally, Identification allows comparison of two works.
