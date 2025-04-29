@@ -21,6 +21,8 @@ Honors Petition Project
 
 Liberty University - School of Business
 
+[Website Link](https://kingmcd.shinyapps.io/stylocompare/)
+
 ## **Abstract**
 
 Stylo-Compare is a tool created for stylometric analysis of two source texts. It provides 5 views of comparison, including Vocabulary, Readability, Lexical Analysis, Phraseology and Identification. The Vocabulary section uses Type-Token Ratios to compare the vocabulary richness of the texts. The Readability sections uses Flesch and Dale-Chall Readability Scores and the Gunning Fog Index to assess the ease of reading sections of the text. The Lexical Analysis section uses reoccurring lexical features of the texts for comparison. The Phraseology section shows common phrases of various lengths. The Identification sections shows two forms of Principal Component Analysis that attempt to split the texts into groups by author. This tool hopes to encourage future innovation in stylometry and textual analysis research.
