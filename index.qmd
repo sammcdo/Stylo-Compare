@@ -1,0 +1,442 @@
+---
+title: "Stylo-Compare Writeup"
+editor: visual
+author: Sam McDowell
+date: "04-28-2025"
+date-format: long
+format:
+  html: # or docx for Word Document
+    toc: true # includes table of contents
+    code-fold: true # option for collapsing code blocks in html
+execute:
+  echo: true # includes output
+  warning: false # turns off warnings
+  error: false # if set to true, then stops running at error
+  output: true
+---
+
+# **Stylo-Compare - Visualization Tool**
+
+Honors Petition Project
+
+Liberty University - School of Business
+
+## **Abstract**
+
+Stylo-Compare is a tool created for stylometric analysis of two source texts. It provides 5 views of comparison, including Vocabulary, Readability, Lexical Analysis, Phraseology and Identification. The Vocabulary section uses Type-Token Ratios to compare the vocabulary richness of the texts. The Readability sections uses Flesch and Dale-Chall Readability Scores and the Gunning Fog Index to assess the ease of reading sections of the text. The Lexical Analysis section uses reoccurring lexical features of the texts for comparison. The Phraseology section shows common phrases of various lengths. The Identification sections shows two forms of Principal Component Analysis that attempt to split the texts into groups by author. This tool hopes to encourage future innovation in stylometry and textual analysis research.
+
+## **Introduction**
+
+In the late 1700s, three of the Founding Fathers of the United States of America, Alexander Hamilton, John Jay, and James Madison, wrote a series of essays, the Federalist Papers, with the goal of urging the colonies to ratify the Constitution (Library of Congress, 2019). These three authors all wrote under the pseudonym "Publius" (Library of Congress, 2019). For a long time, it was impossible to know which of the three writers authored each of the 85 works. However, in 1964, Professors David Wallace and Frederick Mosteller used statistical tools to identify the authors of these works (Mercer, 2017). For 200 years it was impossible to determine the authors of the Federalist Papers. However, the study of Stylometry allowed researchers to make this incredible breakthrough.
+
+Stylometry is the use of statistical methods to analyze writing style and authorship (Wermer-Colman, 2023). Stylometry is used frequently for authorship attribution (Wermer-Colman, 2023). This could be done for Computational Linguistics studies but is also frequently conducted for Literary Forensics (Wermer-Colman, 2023). As AI generated content continues to be rapidly circulated, linguistic forensics is becoming increasingly common.
+
+The goal of this petition is to create a tool called Stylo-Compare that allows visualization of common stylometric analysis metrics. It provides a more detailed analysis than current tools, such as the R Stylo library. In particular, it focuses on comparison of two works, instead of comparing a collection of works.
+
+## **Visualizations**
+
+Stylo-Compare is a stylometric analysis tool that allows for the comparison of two raw texts. It offers insights into the writing style of each input work, and
+
+Stylo-Compare allows for visualizations in five different categories: Vocabulary, Readability, Lexical Analysis, Phraseology, and Identification. Vocabulary deals with the variability in words used by the author. Readability uses modern techniques to estimate the difficulty of a text. Lexical Analysis deals with words, sentences and parts of speech. Phraseology allows the viewing of common phrases used by the author. Finally, Identification allows comparison of two works.
+
+The first set of visualizations Stylo-Compare provides is focused on each works use of vocabulary. To assess this, the Type-Token Ratio (TTR) is used. This measure was introduced in the 1950s, early in the study of Stylometry (Cunningham and Haley, 2020). It is calculated by dividing the number of unique words by the number of total words (Cunningham and Haley, 2020). This gives a measure of how diverse the authors vocabulary is throughout the work. Stylo-Compare gives several visualizations of this calculation. The first is an overall TTR for each work. This offers a framework for the graphs that follow. The first is a rolling TTR over chunks of the book. This shows how the vocabulary use changes over time. The second is an expanding TTR calculation to show the total variability as the work is progressed through.
+
+The Type-Token Ratio is a great tool for giving a big picture look at the use of vocabulary. As a means of comparison it is quite helpful. A well-known shortcoming of TTR is that its measure changes based on the size of the text (Cvrcek and Chlumska, 2015). To mitigate this, the TTR was calculated on chunks of roughly similar size. This helps make the visualizations of both texts comparable to each other.
+
+The second set of visualizations Stylo-Compare provides is focused on readability. To test the readability of both works, three measures were used: the Flesch Readability Score, the Dale-Chall Readability Score, and the Gunning Fog Index.
+
+The visualization of the Flesch Readability Score shows the readability of each whole work and the readability of each chunk over the course of the work. This score is a commonly used indicator of how hard a work is to read in English (Eleyan et al., 2020). It was originally developed in 1948 but has continued as a standard through today (Jindal and MacDermid, 2017). The formula uses the average number of words in a sentence and the average number of syllables per word. Stylo-Compare is known to overestimate the number of syllables in a word as the estimate is based on the number of vowels in a word. That leads the Flesch Readability Scores to estimate a higher complexity in the text than is truly present. However, both works can still be compared knowing this is a rough estimate.
+
+The visualization of the Dale-Chall Readability Score shows the readability of each work and the readability of each chunk, as done previously. The Dale-Chall score is a commonly used measure that outputs a suggested grade level (Gencer, 2024). It is effective at a variety of diverse forms of writing (Gencer, 2024). It is calculated by comparing words in the work to words deemed suitable for 4^th^-5^th^ grade students (Arshad et al., 2023). The word list used for this project is sourced from ReadabilityFormulas.com (2025). The word list does not include “inflected words” (ReadabilityFormulas.com, 2025) and Stylo-Compare does not check for them. This will cause an increased number of words to be marked difficult. However, as both works are compared using the same weakened calculation, they are comparable to each other.
+
+The visualization of the Gunning Fog Index also includes a total score for each work and a visualization throughout the work. This formula uses the average words per sentence and the number of difficult words versus total words (Plotnikov, 2020). Difficult words are words with more than 2 syllables (Plotnikov, 2020). Again, Stylo-Compare does not accurately count syllables so it tends to overestimate the difficulty of texts. However, the Gunning Fog index is a robust formula and the results are useful in comparison to each other.
+
+The next section of information that Stylo-Compare offers is the Lexical Analysis section. The first two visualizations are the most and least common words. This is very important because it is a key component of Word Frequency Principal Component Analysis (Hoover, 2007). The most frequently used words should vary from author to author (Hoover, 2007), especially when stop words are excluded, as Stylo-Compare does.
+
+The other very important visualization included in Lexical Analysis is the part of speech counts. Part of speech tagging, the process of labeling words by their part of speech, is one of the most important steps in text comprehension (Gholami-Dastgerdi and Feizi-Derakhshi, 2021). The frequency of parts of speech varies noticeably by writer and writing style. An example of this is a part of speech based classifier of verse and prose (Chen et al., 2024).
+
+The fourth section of visualizations is phraseology. This section offers the most common phrases in the source texts. There are 3, 4, and 5 word phrases. This offers a glimpse of the writer’s style. It is helpful as an observer but it is not included in any other calculations.
+
+The final section of Stylo-Compare is the identification section. This section revolves around two Principal Component Analysis scatter plots. In the first analysis, the features are the frequencies of the words in the works. This type of analysis of the word frequencies is used in the majority of stylometric authorship analysis studies (Eder et al., 2016). The Stylo library in R provides this as the primary metric of visualization of authorship for collections of works (Eder et al., 2016). In Stylo-Compare, the graphed results and the top 10 contributing words are shown. A weakness of this method is that proper nouns are not removed from the Principal Component Analysis.
+
+The second visualization in the identification section is a Principal Component Analysis of the features displayed throughout the rest of the tool. This includes Type-Token Ratio, readability metrics and parts of speech usage. The points displayed are the same chunks used in the other visualizations.
+
+## **Results**
+
+In this section, the features will be demonstrated using two texts sourced from the Kaggle data science platform: Pride and Prejudice by Jane Austen (Nguyen, 2023), and Jane Eyre by Charlotte Bronte (Averill, 2019).
+
+```{r}
+library(shiny)
+library(shinydashboard)
+library(ggplot2)
+library(stylo)
+library(ggplot2)
+library(tidyr)
+library(openNLP)
+library(sylcount)
+library(DT)
+library(stylo)
+library(NLP)
+library(stringr)
+library(dplyr)
+library(tidytext)
+library(tm)
+
+
+source("helpers.R")
+```
+
+### Data Loading
+
+```{r}
+# read source 1
+austen <- readLines("pride_and_prejudice.txt")
+austen_w <- txt.to.words(austen)
+austen_s <- split_into_sentences(austen)
+
+austen_cs <- split(austen_s, ceiling(seq_along(austen_s) / CHUNK_SIZE_SENT))
+austen_c <- lapply(austen_cs, function(sentences) txt.to.words(paste(sentences, collapse = " ")))
+
+# read source 2
+bronte <- readLines("jane_eyre.txt")
+bronte_w <- txt.to.words(bronte)
+bronte_s <- split_into_sentences(bronte)
+
+bronte_cs <- split(bronte_s, ceiling(seq_along(bronte_s) / CHUNK_SIZE_SENT))
+bronte_c <- lapply(bronte_cs, function(sentences) txt.to.words(paste(sentences, collapse = " ")))
+
+mlen <- min(length(austen_c), length(bronte_c))
+austen_c <- austen_c[1:mlen]
+bronte_c <- bronte_c[1:mlen]
+
+mlen2 <- min(length(austen_cs), length(bronte_cs))
+austen_cs <- austen_cs[1:mlen2]
+bronte_cs <- bronte_cs[1:mlen2]
+```
+
+The data is read from raw text files (or in the case of the tool, a file upload). The data is split into words and sentences. Splitting the words into sentences uses the openNLP Maxent_Sent_Token_Annotator. This is very accurate but very slow.
+
+### Vocabulary
+
+```{r}
+a_ttr <- sapply(austen_c, calculate_ttr)
+b_ttr <- sapply(bronte_c, calculate_ttr)
+
+res <- data.frame(
+  Source1 = a_ttr,
+  Source2 = b_ttr,
+  x = 1:length(austen_c)
+)
+
+res <- pivot_longer(res, cols = c(Source1, Source2), names_to = "auth", values_to = "vals")
+
+ggplot( res, aes(x=x, y=vals, fill=auth)) + 
+  geom_bar(stat="identity", position="dodge") +
+  labs(x="Chunk", y="Type-Token Ratio", fill="Authors") +
+  theme_minimal()
+
+rolling_ttr_a <- c()
+rolling_ttr_b <- c()
+
+for (i in 1:length(austen_c)) {
+  currentSubsetA <- austen_w[1:(i*CHUNK_SIZE)]
+  currentSubsetB <- bronte_w[1:(i*CHUNK_SIZE)]
+  rolling_ttr_a[i] <- calculate_ttr(currentSubsetA)
+  rolling_ttr_b[i] <- calculate_ttr(currentSubsetB)
+}
+
+res <- data.frame(
+  Source1 = rolling_ttr_a,
+  Source2 = rolling_ttr_b,
+  x = 1:length(austen_c)
+)
+res <- pivot_longer(res, cols = c(Source1, Source2), names_to = "auth", values_to = "vals")
+
+ggplot( res, aes(x=x, y=vals, fill=auth)) + 
+  geom_bar(stat="identity", position="dodge") +
+  labs(x="Chunk", y="Type-Token Ratio", fill="Authors") +
+  theme_minimal()
+```
+
+These are the visualizations of the Type-Token Ratio to measure vocabulary. They are colored based on the source but since they are comparable metrics they can be displayed on one chart together.
+
+### Readability
+
+```{r}
+a_fre <- sapply(austen_cs, calculate_fre)
+b_fre <- sapply(bronte_cs, calculate_fre)
+
+
+res <- data.frame(
+  Source1 = a_fre,
+  Source2 = b_fre,
+  x = 1:length(austen_cs)
+)
+
+res <- pivot_longer(res, cols = c(Source1, Source2), names_to = "auth", values_to = "vals")
+
+ggplot( res, aes(x=x, y=vals, fill=auth)) + 
+geom_bar(stat="identity", position="dodge") +
+labs(x="Chunk", y="Flesh Score") +
+theme_minimal()
+a_dce <- sapply(austen_cs, calculate_dce)
+  b_dce <- sapply(bronte_cs, calculate_dce)
+  
+  res <- data.frame(
+    Source1 = a_dce,
+    Source2 = b_dce,
+    x = 1:length(austen_cs)
+  )
+  
+  res <- pivot_longer(res, cols = c(Source1, Source2), names_to = "auth", values_to = "vals")
+  
+  ggplot( res, aes(x=x, y=vals, fill=auth)) + 
+    geom_bar(stat="identity", position="dodge") +
+    labs(x="Chunk", y="Dale-Chall Score") +
+    theme_minimal()
+
+a_gfi <- sapply(austen_cs, calculate_gfi)
+b_gfi <- sapply(bronte_cs, calculate_gfi)
+
+res <- data.frame(
+  Source1 = a_gfi,
+  Source2 = b_gfi,
+  x = 1:length(austen_cs)
+)
+
+res <- pivot_longer(res, cols = c(Source1, Source2), names_to = "auth", values_to = "vals")
+
+ggplot( res, aes(x=x, y=vals, fill=auth)) + 
+  geom_bar(stat="identity", position="dodge") +
+  labs(x="Chunk", y="Gunning Fog Index") +
+  theme_minimal()
+```
+
+These three visualizations show the readability measures for the test data sets. As described, the results are somewhat inflated due to the syllable counts being based on the number of vowels. The metrics use the same number of sentences per chunk and the same number of chunks and so they are comparable. This allows them to be displayed on one chart using the color scheme used throughout the application.
+
+### Lexical Analysis
+
+```{r}
+wf_a <- create_frequency_dataframe(austen_w)
+wf_a$word <- factor(wf_a$word, levels = unique(wf_a$word))
+ggplot( wf_a, aes(x=word, y=frequency)) + 
+  geom_bar(stat="identity", fill="#F8766D") +
+  labs(x="Words", y="Occurences") +
+  theme_minimal() + 
+  theme(axis.text.x = element_text(angle = 90, hjust = 1))
+
+wf_b <- create_frequency_dataframe(bronte_w)
+wf_b$word <- factor(wf_b$word, levels = unique(wf_b$word))
+ggplot( wf_b, aes(x=word, y=frequency)) + 
+  geom_bar(stat="identity", fill="#00BFC4") +
+  labs(x="Words", y="Occurences") +
+  theme_minimal() + 
+  theme(axis.text.x = element_text(angle = 90, hjust = 1))
+
+wf_a <- create_pos_dataframe(austen)
+ggplot( wf_a, aes(x=Category, y=Frequency)) + 
+  geom_bar(stat="identity", fill="#F8766D") +
+  labs(x="Part of Speech", y="Occurences") +
+  theme_minimal() + 
+  theme(axis.text.x = element_text(angle = 90, hjust = 1))
+
+wf_b <- create_pos_dataframe(bronte)
+ggplot( wf_b, aes(x=Category, y=Frequency)) + 
+  geom_bar(stat="identity", fill="#00BFC4") +
+  labs(x="Part of Speech", y="Occurences") +
+  theme_minimal() + 
+  theme(axis.text.x = element_text(angle = 90, hjust = 1))
+```
+
+These visualizations show the most common words and the parts of speech for each work. This step is very time consuming due to the R TextMining package's cleaning functions. The part of speech visualization is based off of the entirety of the text. The columns are proportional to each other but not on the same axis due to the differing lengths of the text. Graphs are colored based on the source for clarity and continuity with other visualizations.
+
+### Phraseology
+
+```{r}
+df <- create_phrase_df(austen_s, 3)
+print(head(df,10))
+df <- create_phrase_df(bronte_s, 3)
+print(head(df,10))
+```
+
+These two tables show an example of the most common phrases from the source texts. Someone familiar with the writing styles of both example authors will not be surprised at some of the wordings.
+
+### Identification
+
+```{r}
+all_words <- c(unlist(austen_w), unlist(bronte_w))
+
+word_counts <- table(all_words)
+
+top_words <- names(sort(word_counts, decreasing = TRUE))[1:300]
+all_samples <- c(austen_c, bronte_c)
+counts_list <- lapply(all_samples, count_words_in_sample, top_words = top_words)
+
+counts_df <- as.data.frame(do.call(rbind, counts_list))
+
+sample_ids <- c(
+  paste0("Source 1.", seq_along(austen_c)),
+  paste0("Source 2.", seq_along(bronte_c))
+)
+
+counts_df$sample_id <- sample_ids
+
+numeric_counts_df <- counts_df[, sapply(counts_df, is.numeric)]
+
+numeric_counts_df <- numeric_counts_df[, apply(numeric_counts_df, 2, var) != 0]
+
+counts_df <- cbind(counts_df[, "sample_id", drop = FALSE], numeric_counts_df)
+
+pca_result <- prcomp(counts_df[, -1], scale. = TRUE)
+
+pca_result <- pca_result
+counts_df <- counts_df
+
+pca_df <- data.frame(pca_result$x)
+pca_df$sample_id <- counts_df$sample_id
+pca_df$author <- ifelse(grepl("^Source 1", pca_df$sample_id), "Source 1", "Source 2")
+
+ggplot(pca_df, aes(x = PC1, y = PC2, label = sample_id, color = author)) +
+  geom_point() +
+  geom_text(vjust = -0.5) +
+  theme_minimal() + 
+  scale_color_manual(values = c("Source 1" = "#F8766D", "Source 2" = "#00BFC4")) +
+  theme(legend.position = "none")
+```
+
+This is the first PCA, using the word frequencies of each source. While proper nouns are not excluded, the results do not seem to rely on them for accurate groupings by author. Sources are colored and labeled for clarity.
+
+```{r}
+austen_ttr <- sapply(austen_c, calculate_ttr)
+bronte_ttr <- sapply(bronte_c, calculate_ttr)
+
+austen_sample_ids <- paste0("Austen", seq_along(austen_ttr))
+bronte_sample_ids <- paste0("Bronte", seq_along(bronte_ttr))
+
+all_ttr <- c(austen_ttr, bronte_ttr)
+all_sample_ids <- c(austen_sample_ids, bronte_sample_ids)
+
+austen_fre <- sapply(austen_cs, calculate_fre)
+bronte_fre <- sapply(bronte_cs, calculate_fre)
+all_fre <- c(austen_fre, bronte_fre)
+
+austen_dce <- sapply(austen_cs, calculate_dce)
+bronte_dce <- sapply(bronte_cs, calculate_dce)
+all_dce <- c(austen_dce, bronte_dce)
+
+austen_gfi <- sapply(austen_cs, calculate_gfi)
+bronte_gfi <- sapply(bronte_cs, calculate_gfi)
+all_gfi <- c(austen_gfi, bronte_gfi)
+
+austen_awl <- sapply(austen_c, calculate_awl)
+bronte_awl <- sapply(bronte_c, calculate_awl)
+all_awl <- c(austen_awl, bronte_awl)
+
+input_cs <- c(austen_cs, bronte_cs)
+austen_pos_list <- lapply(input_cs, function(sentences) {
+  text_chunk <- paste(sentences, collapse = " ")  # Join sentences into one string
+  create_pos_dataframe(text_chunk)
+})
+summarize_pos <- function(pos_df) {
+  aggregate(Frequency ~ Category, data = pos_df, sum)
+}
+austen_pos_summary <- lapply(austen_pos_list, summarize_pos)
+austen_pos_vectors <- lapply(austen_pos_summary, function(df) {
+  setNames(df$Frequency, df$Category)
+})
+austen_pos_df <- bind_rows(lapply(austen_pos_vectors, as.data.frame.list))
+austen_pos_df[is.na(austen_pos_df)] <- 0
+
+
+res <- data.frame(
+  sample_id = all_sample_ids,
+  TTR = all_ttr,
+  FRE = all_fre,
+  DCE = all_dce,
+  GFI = all_gfi,
+  AWL = all_awl
+  
+)
+res <- cbind(res, austen_pos_df)
+
+sample_ids <- c(
+  paste0("Source 1.", seq_along(austen_cs)),
+  paste0("Source 2.", seq_along(bronte_cs))
+)
+
+res$sample_id <- sample_ids
+
+res_n <- res[, sapply(res, is.numeric)]
+
+res_n <- res_n[, apply(res_n, 2, var) != 0]
+
+res <- cbind(res[, "sample_id", drop = FALSE], res_n)
+
+pca_result <- prcomp(res[, -1], scale. = TRUE)
+
+pca_result <- pca_result
+counts_df <- counts_df
+
+pca_df <- data.frame(pca_result$x)
+pca_df$sample_id <- counts_df$sample_id
+pca_df$author <- ifelse(grepl("^Source 1", pca_df$sample_id), "Source 1", "Source 2")
+
+ggplot(pca_df, aes(x = PC1, y = PC2, label = sample_id, color = author)) +
+  geom_point() +
+  geom_text(vjust = -0.5) +
+  theme_minimal() + 
+  scale_color_manual(values = c("Source 1" = "#F8766D", "Source 2" = "#00BFC4")) +
+  theme(legend.position = "none")
+```
+
+This second plot is the PCA using the features available in Stylo-Compare. They grouped fairly clearly into two groups. However, this is less clear than the groupings in the frequency clustering. Sources are colored and labeled for clarity.
+
+## **Opportunities for Future Research**
+
+There are two problems that have been noted throughout this document. The first is that in all the readability metrics, the number of syllables is overestimated as it is based on the number of vowels. Using a modern syllable estimator would increase the accuracy of those metrics. This would make the tool more accurate to the true metrics.
+
+The second improvement that could be made would be to remove proper nouns from the data set. This would help in a number of ways. The most important would be the accuracy of the frequency-based principal component analysis. It would also be an important component to the readability metrics, as long character and place names (such as Elizabeth Bennet) would disproportionately impact some source's scores.
+
+Additionally, research could be done to improve the features of the second principal component analysis. Due to the overwhelming success of the word frequency groupings, it could be beneficial to include some word frequency counts in that analysis. However, they must be picked in such a way that they will be used in each data set but favored by preference. An example might be counts of prepositions or conjunctions.
+
+One use of this tool and the resulting visualizations that should be explored is the comparison of AI generated and human written text. As AI gets better at mimicking human writing, it will be interesting to see how effective classical stylometric techniques are in discerning the difference.
+
+## **Conclusion**
+
+In conclusion, Stylo-Compare fills a gap in stylometric visualization by providing a means of comparing two individual texts. It provides vocabulary, readability, lexical, phraseological and identification metrics. It allows the comparison of two sources in detail. It is tools such as these that continue to provide researchers with breakthroughs such as the authorship of the Federalist Papers. It is hoped that this work will provide inspiration for future stylometric research and tools for similarity analysis.
+
+## References
+
+Arshad, M., Yousaf, M., & Sarwar, S. (2023). Comprehensive Readability Assessment of Scientific Learning Resources. *IEEE Access*, *11*, 53978–53994. https://doi.org/10.1109/access.2023.3279360
+
+Averill, C. (2019). *Gothic Literature*. Kaggle.com. https://www.kaggle.com/datasets/charlesaverill/gothic-literature
+
+Chen, S., Burns, P., Bolt, T., Chaudhuri, P., & Dexter, J. (2024). Leveraging Part-of-Speech Tagging for Enhanced Stylometry of Latin Literature. *Association for Computational Linguistics*, 251–259. https://doi.org/10.18653/v1/2024.ml4al-1.24
+
+Cunningham, K. T., & Haley, K. L. (2020). Measuring Lexical Diversity for Discourse Analysis in Aphasia: Moving-Average Type–Token Ratio and Word Information Measure. *Journal of Speech, Language, and Hearing Research*, *63*(3), 710–721. https://doi.org/10.1044/2019_jslhr-19-00226
+
+Cvrček, V., & Chlumská, L. (2015). Simplification in translated Czech: a new approach to type-token ratio. *Russian Linguistics*, *39*(3), 309–325. https://doi.org/10.1007/s11185-015-9151-8
+
+Eder, M., Rybicki, J., & Kestemont, M. (2016). Stylometry with R: A Package for Computational Text Analysis. *The R Journal*, *8*(1), 107. https://doi.org/10.32614/rj-2016-007
+
+Eleyan, D., Othman, A., & Eleyan, A. (2020). Enhancing Software Comments Readability Using Flesch Reading Ease Score. *Information*, *11*(9), 430. https://doi.org/10.3390/info11090430
+
+Gencer, A. (2024). Readability analysis of ChatGPT’s responses on lung cancer. *Scientific Reports*, *14*(1). https://doi.org/10.1038/s41598-024-67293-2
+
+Gholami-Dastgerdi, P., & Feizi-Derakhshi, M.-R. (2021). Part of Speech Tagging Using Part of Speech Sequence Graph. *Annals of Data Science*. https://doi.org/10.1007/s40745-021-00359-4
+
+Hoover, D. L. (2007). Corpus Stylistics, Stylometry, and the Styles of Henry James. *Style*, *41*(2), 174.
+
+Jindal, P., & MacDermid, J. (2017). Assessing reading levels of health information: uses and limitations of flesch formula. *Education for Health*, *30*(1), 84. https://doi.org/10.4103/1357-6283.210517
+
+Library of Congress. (2019). *The federalist papers: Primary documents in american history*. Loc.gov; Library of Congress. https://guides.loc.gov/federalist-papers/full-text
+
+Mercer, D. (2017, October 25). *David L. Wallace, statistician who helped identify Federalist Papers authors, 1928-2017*. University of Chicago News. https://news.uchicago.edu/story/david-l-wallace-statistician-who-helped-identify-federalist-papers-authors-1928-2017
+
+Nguyen, M. (2023). *Pride and Prejudice*. Kaggle.com. https://www.kaggle.com/datasets/mainguynstat/pride-and-prejudice
+
+Plotnikov, A. V. (2020). Gunning fog-index measurement of customer reviews of the Russian Agricultural Bank. *IOP Conference Series: Earth and Environmental Science*, *548*(2), 022046. https://doi.org/10.1088/1755-1315/548/2/022046
+
+ReadabilityFormulas.com. (2025). *The Dale-Chall 3,000 Word List for Readability Formulas*. Charactercounter.com. https://charactercounter.com/dale-chall-word-list.txt
+
+Wermer-Colan, A. (2023, November 22). *Research Guides: Stylometry Methods and Practices: Home*. Guides.temple.edu. https://guides.temple.edu/stylometryfordh
