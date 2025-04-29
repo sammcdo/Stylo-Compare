@@ -1,0 +1,22 @@
+library(shiny)
+library(shinydashboard)
+library(ggplot2)
+library(stylo)
+library(ggplot2)
+library(tidyr)
+library(openNLP)
+library(sylcount)
+library(DT)
+library(stylo)
+library(NLP)
+library(stringr)
+library(dplyr)
+library(tidytext)
+library(tm)
+
+
+source("global.R")
+ui <- source("ui.R", local=TRUE)
+server <- source("server.R", local=TRUE)
+
+shinyApp(ui=ui, server=server)

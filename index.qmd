@@ -84,7 +84,7 @@ library(dplyr)
 library(tidytext)
 library(tm)
 
-
+setwd(paste(getwd(),"/app",sep=""))
 source("helpers.R")
 ```
 
@@ -92,7 +92,7 @@ source("helpers.R")
 
 ```{r}
 # read source 1
-austen <- readLines("pride_and_prejudice.txt")
+austen <- readLines("sample_data/pride_and_prejudice.txt")
 austen_w <- txt.to.words(austen)
 austen_s <- split_into_sentences(austen)
 
@@ -100,7 +100,7 @@ austen_cs <- split(austen_s, ceiling(seq_along(austen_s) / CHUNK_SIZE_SENT))
 austen_c <- lapply(austen_cs, function(sentences) txt.to.words(paste(sentences, collapse = " ")))
 
 # read source 2
-bronte <- readLines("jane_eyre.txt")
+bronte <- readLines("sample_data/jane_eyre.txt")
 bronte_w <- txt.to.words(bronte)
 bronte_s <- split_into_sentences(bronte)
 
@@ -298,11 +298,17 @@ pca_df <- data.frame(pca_result$x)
 pca_df$sample_id <- counts_df$sample_id
 pca_df$author <- ifelse(grepl("^Source 1", pca_df$sample_id), "Source 1", "Source 2")
 
+explained_variance <- summary(pca_result)$importance[2, ] * 100
+    
 ggplot(pca_df, aes(x = PC1, y = PC2, label = sample_id, color = author)) +
   geom_point() +
   geom_text(vjust = -0.5) +
   theme_minimal() + 
   scale_color_manual(values = c("Source 1" = "#F8766D", "Source 2" = "#00BFC4")) +
+  labs(
+    x = paste0("PC1 (", round(explained_variance[1], 2), "% variance)"),
+    y = paste0("PC2 (", round(explained_variance[2], 2), "% variance)")
+  ) +
   theme(legend.position = "none")
 ```
 
@@ -383,11 +389,17 @@ pca_df <- data.frame(pca_result$x)
 pca_df$sample_id <- counts_df$sample_id
 pca_df$author <- ifelse(grepl("^Source 1", pca_df$sample_id), "Source 1", "Source 2")
 
+explained_variance <- summary(pca_result)$importance[2, ] * 100
+    
 ggplot(pca_df, aes(x = PC1, y = PC2, label = sample_id, color = author)) +
   geom_point() +
   geom_text(vjust = -0.5) +
   theme_minimal() + 
   scale_color_manual(values = c("Source 1" = "#F8766D", "Source 2" = "#00BFC4")) +
+  labs(
+    x = paste0("PC1 (", round(explained_variance[1], 2), "% variance)"),
+    y = paste0("PC2 (", round(explained_variance[2], 2), "% variance)")
+  ) +
   theme(legend.position = "none")
 ```
 

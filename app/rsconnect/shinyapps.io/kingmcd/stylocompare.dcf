@@ -1,0 +1,12 @@
+name: stylocompare
+title: stylocompare
+username: kingmcd
+account: kingmcd
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 14638798
+bundleId: 10201928
+url: https://kingmcd.shinyapps.io/stylocompare/
+version: 1
+asMultiple: FALSE
+asStatic: FALSE

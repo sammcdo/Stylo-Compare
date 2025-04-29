@@ -1,13 +1,3 @@
-library(openNLP)
-library(sylcount)
-library(stylo)
-library(NLP)
-library(stringr)
-library(dplyr)
-library(tidytext)
-library(tm)
-
-
 CHUNK_SIZE <- 5000
 CHUNK_SIZE_SENT <- 500
 
@@ -107,16 +97,16 @@ calculate_awl <- function(words) {
 
 create_frequency_dataframe <- function(word_list, common=TRUE) {
   # Convert the word list to a Corpus
-  corpus <- Corpus(VectorSource(word_list))
+  #corpus <- Corpus(VectorSource(word_list))
   
   # Preprocess the Corpus (remove stop words, punctuation, etc.)
-  corpus <- tm_map(corpus, removePunctuation)
-  corpus <- tm_map(corpus, removeNumbers)
-  corpus <- tm_map(corpus, removeWords, stopwords("en"))  # English stop words
-  corpus <- tm_map(corpus, stripWhitespace)
+  #corpus <- tm_map(corpus, removePunctuation)
+  #corpus <- tm_map(corpus, removeNumbers)
+  #corpus <- tm_map(corpus, removeWords, stopwords("en"))  # English stop words
+  #corpus <- tm_map(corpus, stripWhitespace)
   
   # Create a Term-Document Matrix
-  tdm <- TermDocumentMatrix(corpus)
+  tdm <- TermDocumentMatrix(word_list)
   matrix <- as.matrix(tdm)
   
   # Calculate word frequencies
