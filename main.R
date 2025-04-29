@@ -7,6 +7,12 @@ library(tidyr)
 library(openNLP)
 library(sylcount)
 library(DT)
+library(stylo)
+library(NLP)
+library(stringr)
+library(dplyr)
+library(tidytext)
+library(tm)
 
 
 source("helpers.R")
@@ -283,7 +289,7 @@ server <- function(input, output){
     }
     
     # read source 1
-    austen <- readLines("pride_and_prejudice.txt")
+    #austen <- readLines("pride_and_prejudice.txt")
     austen_w <- txt.to.words(austen)
     austen_s <- split_into_sentences(austen)
     
@@ -291,7 +297,7 @@ server <- function(input, output){
     austen_c <- lapply(austen_cs, function(sentences) txt.to.words(paste(sentences, collapse = " ")))
     
     # read source 2
-    bronte <- readLines("jane_eyre.txt")
+    #bronte <- readLines("jane_eyre.txt")
     bronte_w <- txt.to.words(bronte)
     bronte_s <- split_into_sentences(bronte)
     
@@ -339,7 +345,7 @@ server <- function(input, output){
     res <- data.frame(
       Source1 = a_ttr,
       Source2 = b_ttr,
-      x = 1:mlen
+      x = 1:length(text_data()$austen_c)
     )
     
     res <- pivot_longer(res, cols = c(Source1, Source2), names_to = "auth", values_to = "vals")
@@ -355,7 +361,7 @@ server <- function(input, output){
     rolling_ttr_a <- c()
     rolling_ttr_b <- c()
     
-    for (i in 1:length(austen_c)) {
+    for (i in 1:length(text_data()$austen_c)) {
       currentSubsetA <- text_data()$austen_w[1:(i*CHUNK_SIZE)]
       currentSubsetB <- text_data()$bronte_w[1:(i*CHUNK_SIZE)]
       rolling_ttr_a[i] <- calculate_ttr(currentSubsetA)
@@ -365,7 +371,7 @@ server <- function(input, output){
     res <- data.frame(
       Source1 = rolling_ttr_a,
       Source2 = rolling_ttr_b,
-      x = 1:mlen
+      x = 1:length(text_data()$austen_c)
     )
     res <- pivot_longer(res, cols = c(Source1, Source2), names_to = "auth", values_to = "vals")
     
@@ -383,7 +389,7 @@ server <- function(input, output){
     res <- data.frame(
       Source1 = a_fre,
       Source2 = b_fre,
-      x = 1:mlen2
+      x = 1:length(text_data()$austen_cs)
     )
     
     res <- pivot_longer(res, cols = c(Source1, Source2), names_to = "auth", values_to = "vals")
@@ -409,7 +415,7 @@ server <- function(input, output){
     res <- data.frame(
       Source1 = a_dce,
       Source2 = b_dce,
-      x = 1:mlen2
+      x = 1:length(text_data()$austen_cs)
     )
     
     res <- pivot_longer(res, cols = c(Source1, Source2), names_to = "auth", values_to = "vals")
@@ -442,7 +448,7 @@ server <- function(input, output){
     
     ggplot( res, aes(x=x, y=vals, fill=auth)) + 
       geom_bar(stat="identity", position="dodge") +
-      labs(x="Chunk", y="Dale-Chall Score") +
+      labs(x="Chunk", y="Gunning Fog Index") +
       theme_minimal()
   })
   
@@ -549,6 +555,11 @@ server <- function(input, output){
   
   
   pca_data <- reactive({
+    all_words <- c(unlist(text_data()$austen_w), unlist(text_data()$bronte_w))
+    
+    word_counts <- table(all_words)
+    
+    top_words <- names(sort(word_counts, decreasing = TRUE))[1:300]
     all_samples <- c(text_data()$austen_c, text_data()$bronte_c)
     counts_list <- lapply(all_samples, count_words_in_sample, top_words = top_words)
     
@@ -618,15 +629,12 @@ server <- function(input, output){
   })
   
   pca_data_custom <- reactive({
-    # Apply the TTR function to each chunk in both austen_c and bronte_c
     austen_ttr <- sapply(text_data()$austen_c, calculate_ttr)
     bronte_ttr <- sapply(text_data()$bronte_c, calculate_ttr)
     
-    # Create a sample_id for each chunk (e.g., Austen1, Austen2, ..., Bronte1, Bronte2, ...)
     austen_sample_ids <- paste0("Austen", seq_along(austen_ttr))
     bronte_sample_ids <- paste0("Bronte", seq_along(bronte_ttr))
     
-    # Combine TTR values and sample_ids from both Austen and Bronte
     all_ttr <- c(austen_ttr, bronte_ttr)
     all_sample_ids <- c(austen_sample_ids, bronte_sample_ids)
     
@@ -646,7 +654,6 @@ server <- function(input, output){
     bronte_awl <- sapply(text_data()$bronte_c, calculate_awl)
     all_awl <- c(austen_awl, bronte_awl)
     
-    # POS
     input_cs <- c(text_data()$austen_cs, text_data()$bronte_cs)
     austen_pos_list <- lapply(input_cs, function(sentences) {
       text_chunk <- paste(sentences, collapse = " ")  # Join sentences into one string

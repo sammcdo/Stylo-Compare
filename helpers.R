@@ -5,6 +5,7 @@ library(NLP)
 library(stringr)
 library(dplyr)
 library(tidytext)
+library(tm)
 
 
 CHUNK_SIZE <- 5000
@@ -188,4 +189,12 @@ create_phrase_df <- function(sentences, n=2) {
   
   # Return the dataframe of common phrases
   return(ngrams)
+}
+
+count_words_in_sample <- function(sample_words, top_words) {
+  sample_table <- table(sample_words)
+  counts <- sapply(top_words, function(w) {
+    if (w %in% names(sample_table)) sample_table[[w]] else 0
+  })
+  return(counts)
 }
